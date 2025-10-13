@@ -1,6 +1,20 @@
 import axios from "axios";
 import type { Note } from "../types/note";
 
+export type RegisterRequest = {
+  email: string;
+  password: string;
+  userName: string;
+};
+
+export interface User {
+  id: string;
+  email: string;
+  userName?: string;
+  photoUrl?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
 interface CreateNoteResponse {
   note: Note;
 }
@@ -20,7 +34,11 @@ interface DeleteNoteResponse {
   note: Note;
 }
 
-axios.defaults.baseURL = "https://notehub-public.goit.study/api";
+const nextServer = axios.create({
+  baseURL: "http://localhost:3000/api",
+  withCredentials: true,
+});
+
 const VITE_NOTEHUB_TOKEN = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 
 export const fetchNotes = async (
@@ -28,22 +46,20 @@ export const fetchNotes = async (
   currentPage: number,
   tag?: string
 ): Promise<FetchNotesResponse> => {
-  const response = await axios.get<FetchNotesResponse>("/notes", {
+  const response = await nextServer.get<FetchNotesResponse>("/notes", {
     params: {
       search: query,
       page: currentPage,
       perPage: 10,
       tag: tag,
     },
-    headers: {
-      Authorization: `Bearer ${VITE_NOTEHUB_TOKEN}`,
-    },
   });
+  console.log(response.data);
   return response.data;
 };
 
 export const fetchNoteById = async (noteId: string) => {
-  const response = await axios.get(`/notes/${noteId}`, {
+  const response = await nextServer.get(`/notes/${noteId}`, {
     headers: {
       Authorization: `Bearer ${VITE_NOTEHUB_TOKEN}`,
     },
@@ -54,7 +70,7 @@ export const fetchNoteById = async (noteId: string) => {
 export const createNote = async (
   note: CreateNote
 ): Promise<CreateNoteResponse> => {
-  const response = await axios.post<CreateNoteResponse>("/notes", note, {
+  const response = await nextServer.post<CreateNoteResponse>("/notes", note, {
     headers: {
       Authorization: `Bearer ${VITE_NOTEHUB_TOKEN}`,
     },
@@ -63,10 +79,18 @@ export const createNote = async (
 };
 
 export const deleteNote = async (noteId: string) => {
-  const response = await axios.delete<DeleteNoteResponse>(`/notes/${noteId}`, {
-    headers: {
-      Authorization: `Bearer ${VITE_NOTEHUB_TOKEN}`,
-    },
-  });
+  const response = await nextServer.delete<DeleteNoteResponse>(
+    `/notes/${noteId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${VITE_NOTEHUB_TOKEN}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const register = async (data: RegisterRequest) => {
+  const response = await nextServer.post<User>("/auth/register", data);
   return response.data;
 };
