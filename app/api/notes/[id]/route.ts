@@ -4,7 +4,7 @@ type Props = {
   params: Promise<{ id: string }>;
 };
 
-export async function name(request: NextRequest, { params }: Props) {
+export async function GET(request: NextRequest, { params }: Props) {
   const { id } = await params;
   try {
     const { data } = await api(`/notes/${id}`);

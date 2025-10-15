@@ -1,5 +1,6 @@
 import axios from "axios";
 import type { Note } from "../types/note";
+import type User from "../types/user";
 
 export type RegisterRequest = {
   email: string;
@@ -7,14 +8,11 @@ export type RegisterRequest = {
   userName: string;
 };
 
-export interface User {
-  id: string;
+export type LoginRequest = {
   email: string;
-  userName?: string;
-  photoUrl?: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+  password: string;
+};
+
 interface CreateNoteResponse {
   note: Note;
 }
@@ -35,11 +33,9 @@ interface DeleteNoteResponse {
 }
 
 const nextServer = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "http://localhost:3003/api",
   withCredentials: true,
 });
-
-const VITE_NOTEHUB_TOKEN = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 
 export const fetchNotes = async (
   query: string,
@@ -54,43 +50,34 @@ export const fetchNotes = async (
       tag: tag,
     },
   });
-  console.log(response.data);
   return response.data;
 };
 
 export const fetchNoteById = async (noteId: string) => {
-  const response = await nextServer.get(`/notes/${noteId}`, {
-    headers: {
-      Authorization: `Bearer ${VITE_NOTEHUB_TOKEN}`,
-    },
-  });
+  const response = await nextServer.get(`/notes/${noteId}`);
   return response.data;
 };
 
 export const createNote = async (
   note: CreateNote
 ): Promise<CreateNoteResponse> => {
-  const response = await nextServer.post<CreateNoteResponse>("/notes", note, {
-    headers: {
-      Authorization: `Bearer ${VITE_NOTEHUB_TOKEN}`,
-    },
-  });
+  const response = await nextServer.post<CreateNoteResponse>("/notes", note);
   return response.data;
 };
 
 export const deleteNote = async (noteId: string) => {
   const response = await nextServer.delete<DeleteNoteResponse>(
-    `/notes/${noteId}`,
-    {
-      headers: {
-        Authorization: `Bearer ${VITE_NOTEHUB_TOKEN}`,
-      },
-    }
+    `/notes/${noteId}`
   );
   return response.data;
 };
 
-export const register = async (data: RegisterRequest) => {
-  const response = await nextServer.post<User>("/auth/register", data);
-  return response.data;
+export const register = async (body: RegisterRequest) => {
+  const response = await nextServer.post<User>("/auth/register", body);
+  return response;
+};
+
+export const login = async (body: LoginRequest) => {
+  const response = await nextServer.post<User>("/auth/login", body);
+  return response;
 };

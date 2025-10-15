@@ -3,9 +3,12 @@ import { api, ApiError } from "../api";
 
 export async function GET(request: NextRequest) {
   const tag = request.nextUrl.searchParams.get("tag");
+  const query = request.nextUrl.searchParams.get("query");
+  const currentPage = request.nextUrl.searchParams.get("currentPage");
+
   try {
     const { data } = await api("/notes", {
-      params: { tag },
+      params: { tag, query, currentPage },
     });
     return NextResponse.json(data);
   } catch (error) {
