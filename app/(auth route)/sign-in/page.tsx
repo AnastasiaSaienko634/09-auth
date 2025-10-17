@@ -2,10 +2,12 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ApiError } from "@/app/api/api";
-import { LoginRequest, login } from "@/lib/api";
 import css from "./SignIn.module.css";
+import { useAuth } from "@/lib/store/auth-store";
+import { login, LoginRequest } from "@/lib/clientApi";
 
 const SignIn = () => {
+  const { setUser } = useAuth();
   const [error, setError] = useState("");
   const router = useRouter();
   const handleSubmit = async (formData: FormData) => {
@@ -16,7 +18,8 @@ const SignIn = () => {
       const response = await login(formValues);
 
       if (response) {
-        router.push("/profile");
+        setUser(response.data);
+        router.replace("/profile");
       } else {
         setError("Invalid email or password");
       }

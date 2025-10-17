@@ -3,6 +3,7 @@ import React from "react";
 import { FiHome } from "react-icons/fi";
 import css from "./Header.module.css";
 import TagsMenu from "../TagsMenu/TagsMenu";
+import AuthNavigation from "../AuthNavigation/AuthNavigation";
 
 const Header = () => {
   return (
@@ -20,12 +21,7 @@ const Header = () => {
           <li>
             <TagsMenu />
           </li>
-          <li>
-            <Link href="/sign-in">Login</Link>
-          </li>
-          <li>
-            <Link href="/sign-up">Register</Link>
-          </li>
+          <AuthNavigation />
         </ul>
       </nav>
     </header>

@@ -1,7 +1,6 @@
 "use client";
 import css from "./page.module.css";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { fetchNotes } from "@/lib/api";
 import Loader from "@/components/Loader/Loader";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import NoteList from "@/components/NoteList/NoteList";
@@ -12,6 +11,7 @@ import { useState } from "react";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import { useDebounce } from "use-debounce";
 import Link from "next/link";
+import { fetchNotes } from "@/lib/clientApi";
 
 interface NotesProps {
   tag?: string;
