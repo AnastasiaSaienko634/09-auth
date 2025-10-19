@@ -7,6 +7,7 @@ import { logOut } from "@/lib/clientApi";
 const AuthNavigation = () => {
   const { user, isAuth, clearAuth } = useAuth();
   const router = useRouter();
+
   const handleClick = async () => {
     await logOut();
     router.replace("/sign-in");

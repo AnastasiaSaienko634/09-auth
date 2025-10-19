@@ -1,4 +1,3 @@
-import axios from "axios";
 import type { Note } from "../types/note";
 import type User from "../types/user";
 import { nextServer } from "./api";
@@ -8,6 +7,10 @@ export type RegisterRequest = {
   password: string;
   userName: string;
 };
+interface PatchMeResponse {
+  email: string;
+  username: string;
+}
 
 export type LoginRequest = {
   email: string;
@@ -93,4 +96,12 @@ export const getMe = async () => {
 
 export const logOut = async () => {
   await nextServer.post("/auth/logout");
+};
+
+export const patchMe = async ({ email, username }: PatchMeResponse) => {
+  const { data } = await nextServer.patch<PatchMeResponse>("/users/me", {
+    email,
+    username,
+  });
+  return data;
 };
