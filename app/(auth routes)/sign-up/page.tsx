@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ApiError } from "@/app/api/api";
 import css from "./SignUp.module.css";
-import { useAuth } from "@/lib/store/authStore.ts";
+import { useAuth } from "@/lib/store/authStore";
 import { register, RegisterRequest } from "@/lib/api/clientApi";
 const SignUp = () => {
   const router = useRouter();

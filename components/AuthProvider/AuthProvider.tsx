@@ -1,5 +1,5 @@
 "use client";
-import { useAuth } from "@/lib/store/authStore.ts";
+import { useAuth } from "@/lib/store/authStore";
 import { checkSession, getMe } from "@/lib/api/clientApi";
 import { useEffect } from "react";
 

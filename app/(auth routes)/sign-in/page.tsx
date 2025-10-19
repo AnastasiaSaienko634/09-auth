@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ApiError } from "@/app/api/api";
 import css from "./SignIn.module.css";
-import { useAuth } from "@/lib/store/authStore.ts";
+import { useAuth } from "@/lib/store/authStore";
 import { login, LoginRequest } from "@/lib/api//clientApi";
 
 const SignIn = () => {

@@ -1,5 +1,5 @@
 "use client";
-import { useAuth } from "@/lib/store/authStore.ts";
+import { useAuth } from "@/lib/store/authStore";
 import css from "./AuthNavigation.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
