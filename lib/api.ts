@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const nextServer = axios.create({
-  baseURL: "https://09-auth-mocha-mu.vercel.app",
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
 });
