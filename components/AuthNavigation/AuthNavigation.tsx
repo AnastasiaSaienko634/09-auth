@@ -3,7 +3,7 @@ import { useAuth } from "@/lib/store/auth-store";
 import css from "./AuthNavigation.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { logOut } from "@/lib/clientApi";
+import { logOut } from "@/lib/api/clientApi";
 const AuthNavigation = () => {
   const { user, isAuth, clearAuth } = useAuth();
   const router = useRouter();

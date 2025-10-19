@@ -6,7 +6,7 @@ import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import css from "./NotePreview.module.css";
 import { useRouter } from "next/navigation";
 import Modal from "@/components/Modal/Modal";
-import { fetchNoteById } from "@/lib/clientApi";
+import { fetchNoteById } from "@/lib/api//clientApi";
 const NotePreview = () => {
   const router = useRouter();
   const { id } = useParams<{ id: string }>();

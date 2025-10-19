@@ -5,7 +5,7 @@ import Loader from "@/components/Loader/Loader";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import css from "./NoteDetails.module.css";
 import { useRouter } from "next/navigation";
-import { fetchNoteById } from "@/lib/clientApi";
+import { fetchNoteById } from "@/lib/api/clientApi";
 const NoteDetails = () => {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, isError } = useQuery({

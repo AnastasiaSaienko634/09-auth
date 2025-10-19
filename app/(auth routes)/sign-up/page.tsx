@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { ApiError } from "@/app/api/api";
 import css from "./SignUp.module.css";
 import { useAuth } from "@/lib/store/auth-store";
-import { register, RegisterRequest } from "@/lib/clientApi";
+import { register, RegisterRequest } from "@/lib/api/clientApi";
 const SignUp = () => {
   const router = useRouter();
   const [error, setError] = useState("");

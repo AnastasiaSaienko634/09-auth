@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ApiError } from "@/app/api/api";
 import css from "./SignIn.module.css";
 import { useAuth } from "@/lib/store/auth-store";
-import { login, LoginRequest } from "@/lib/clientApi";
+import { login, LoginRequest } from "@/lib/api//clientApi";
 
 const SignIn = () => {
   const { setUser } = useAuth();

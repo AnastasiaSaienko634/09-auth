@@ -3,7 +3,7 @@ import Image from "next/image";
 import css from "./EditProfile.module.css";
 import { useEffect, useState } from "react";
 import User from "@/types/user";
-import { getMe, patchMe } from "@/lib/clientApi";
+import { getMe, patchMe } from "@/lib/api//clientApi";
 import { useRouter } from "next/navigation";
 
 const EditPage = () => {

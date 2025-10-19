@@ -11,7 +11,7 @@ import { useState } from "react";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import { useDebounce } from "use-debounce";
 import Link from "next/link";
-import { fetchNotes } from "@/lib/clientApi";
+import { fetchNotes } from "@/lib/api//clientApi";
 
 interface NotesProps {
   tag?: string;

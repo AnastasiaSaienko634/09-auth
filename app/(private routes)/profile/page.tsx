@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import css from "./Profile.module.css";
-import { getServerMe } from "@/lib/serverApi";
+import { getServerMe } from "@/lib/api//serverApi";
 import Link from "next/link";
 
 const Profile = async () => {

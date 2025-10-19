@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useDraftNote } from "@/lib/store/noteStore";
 import { ChangeEvent } from "react";
-import { createNote } from "@/lib/clientApi";
+import { createNote } from "@/lib/api//clientApi";
 
 type CreateNote = {
   title: string;
