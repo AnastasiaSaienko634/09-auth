@@ -1,7 +1,6 @@
 "use client";
-
-import { checkSession, getMe } from "@/lib/api/clientApi";
 import { useAuth } from "@/lib/store/authStore.ts";
+import { checkSession, getMe } from "@/lib/api/clientApi";
 import { useEffect } from "react";
 
 interface AuthProviderProps {
