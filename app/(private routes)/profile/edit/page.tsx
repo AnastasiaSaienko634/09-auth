@@ -23,7 +23,7 @@ const EditPage = () => {
     event.preventDefault();
     if (!user) return;
     try {
-      await patchMe({ username, email: user.email });
+      await patchMe({ username });
       const updatedUser = await getMe();
       setUser(updatedUser);
       router.push("/profile");
@@ -56,7 +56,7 @@ const EditPage = () => {
             <input
               id="username"
               type="text"
-              defaultValue={username}
+              value={username}
               className={css.input}
               onChange={(e) => setUsername(e.target.value)}
             />

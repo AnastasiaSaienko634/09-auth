@@ -7,7 +7,6 @@ export type RegisterRequest = {
   username: string;
 };
 interface PatchMeResponse {
-  email: string;
   username: string;
 }
 
@@ -97,9 +96,8 @@ export const logOut = async () => {
   await nextServer.post("/auth/logout");
 };
 
-export const patchMe = async ({ email, username }: PatchMeResponse) => {
-  const { data } = await nextServer.patch<PatchMeResponse>("/users/me", {
-    email,
+export const patchMe = async ({ username }: PatchMeResponse) => {
+  const { data } = await nextServer.patch<User>("/users/me", {
     username,
   });
   return data;

@@ -29,6 +29,7 @@ export const fetchServerNotes = async (
   currentPage: number,
   tag?: string
 ): Promise<fetchServerNotesResponse> => {
+  const cookieStore = await cookies();
   const response = await nextServer.get<fetchServerNotesResponse>("/notes", {
     params: {
       search: query,
@@ -36,11 +37,15 @@ export const fetchServerNotes = async (
       perPage: 10,
       tag: tag,
     },
+    headers: { Cookie: cookieStore.toString() },
   });
   return response.data;
 };
 
 export const fetchServerNoteById = async (noteId: string) => {
-  const response = await nextServer.get(`/notes/${noteId}`);
+  const cookieStore = await cookies();
+  const response = await nextServer.get(`/notes/${noteId}`, {
+    headers: { Cookie: cookieStore.toString() },
+  });
   return response.data;
 };
