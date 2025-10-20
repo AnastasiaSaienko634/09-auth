@@ -5,7 +5,7 @@ import { nextServer } from "./api";
 export type RegisterRequest = {
   email: string;
   password: string;
-  userName: string;
+  username: string;
 };
 interface PatchMeResponse {
   email: string;
@@ -77,12 +77,12 @@ export const deleteNote = async (noteId: string) => {
 
 export const register = async (body: RegisterRequest) => {
   const response = await nextServer.post<User>("/auth/register", body);
-  return response;
+  return response.data;
 };
 
 export const login = async (body: LoginRequest) => {
   const response = await nextServer.post<User>("/auth/login", body);
-  return response;
+  return response.data;
 };
 
 export const checkSession = async () => {

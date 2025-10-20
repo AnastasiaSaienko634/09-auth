@@ -3,13 +3,22 @@ import { NextRequest, NextResponse } from "next/server";
 import { checkServerSession } from "./lib/api/serverApi";
 import { parse } from "cookie";
 
-const privateRoutes = ["/profile"];
+const privateRoutes = [
+  "/profile",
+  "/profile/:path*",
+  "/notes",
+  "/notes/:path*",
+];
 const publicRoutes = ["/sign-in", "/sign-up"];
 export const middleware = async (request: NextRequest) => {
   const { pathname } = request.nextUrl;
   const cookieStore = await cookies();
-  const isPrivateRoute = privateRoutes.includes(pathname);
-  const isPublicRoute = publicRoutes.includes(pathname);
+  const isPrivateRoute = privateRoutes.some((route) =>
+    pathname.startsWith(route)
+  );
+  const isPublicRoute = publicRoutes.some((route) =>
+    pathname.startsWith(route)
+  );
   const accessToken = cookieStore.get("accessToken")?.value;
   const refreshToken = cookieStore.get("refreshToken")?.value;
   if (isPrivateRoute) {
@@ -88,9 +97,13 @@ export const middleware = async (request: NextRequest) => {
           return NextResponse.redirect(new URL("/", request.nextUrl.origin));
         }
 
-        return NextResponse.redirect(new URL("/login", request.nextUrl.origin));
+        return NextResponse.redirect(
+          new URL("/sign-in", request.nextUrl.origin)
+        );
       } catch {
-        return NextResponse.redirect(new URL("/login", request.nextUrl.origin));
+        return NextResponse.redirect(
+          new URL("/sign-in", request.nextUrl.origin)
+        );
       }
     }
     return NextResponse.next();
@@ -98,5 +111,5 @@ export const middleware = async (request: NextRequest) => {
   return NextResponse.next();
 };
 export const config = {
-  matcher: ["/profile", "/sign-in", "/sign-up"],
+  matcher: ["/profile/:path*", "/notes/:path*", "/sign-in", "/sign-up"],
 };

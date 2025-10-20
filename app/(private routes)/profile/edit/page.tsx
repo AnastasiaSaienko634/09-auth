@@ -2,14 +2,14 @@
 import Image from "next/image";
 import css from "./EditProfile.module.css";
 import { useEffect, useState } from "react";
-import User from "@/types/user";
 import { getMe, patchMe } from "@/lib/api//clientApi";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/store/authStore";
 
 const EditPage = () => {
-  const [user, setUser] = useState<User | null>(null);
   const [username, setUsername] = useState("");
   const router = useRouter();
+  const { setUser, user } = useAuth();
   useEffect(() => {
     const fetchUser = async () => {
       const data = await getMe();
@@ -17,13 +17,15 @@ const EditPage = () => {
       setUsername(data.username);
     };
     fetchUser();
-  }, []);
+  }, [setUser]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!user) return;
     try {
-      await patchMe({ username: username, email: user.email });
+      await patchMe({ username, email: user.email });
+      const updatedUser = await getMe();
+      setUser(updatedUser);
       router.push("/profile");
     } catch (error) {
       console.log(error);
@@ -60,7 +62,7 @@ const EditPage = () => {
             />
           </div>
 
-          <p>Email: user_email@example.com</p>
+          <p>Email: {user.email}</p>
 
           <div className={css.actions}>
             <button type="submit" className={css.saveButton}>

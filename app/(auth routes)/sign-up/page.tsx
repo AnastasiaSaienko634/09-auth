@@ -18,7 +18,7 @@ const SignUp = () => {
       const response = await register(formValues);
 
       if (response) {
-        setUser(response.data);
+        setUser(response);
         router.replace("/profile");
       } else {
         setError("Invalid email or password");
@@ -64,7 +64,7 @@ const SignUp = () => {
             </button>
           </div>
 
-          {error && <p className={css.error}>Error</p>}
+          {error && <p className={css.error}>{error}</p>}
         </form>
       </main>
     </>

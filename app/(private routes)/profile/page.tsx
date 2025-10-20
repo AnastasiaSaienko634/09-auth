@@ -3,6 +3,25 @@ import Image from "next/image";
 import css from "./Profile.module.css";
 import { getServerMe } from "@/lib/api//serverApi";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Edit your Profile",
+  description: "Here you can edit your profile.",
+  openGraph: {
+    title: "Edit your Profile",
+    description: "Here you can edit your profile.",
+    url: "https://08-zustand-two-pi.vercel.app/profile/edit",
+    images: [
+      {
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Notehub",
+      },
+    ],
+  },
+};
 
 const Profile = async () => {
   const user = await getServerMe();
