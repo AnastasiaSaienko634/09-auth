@@ -1,7 +1,6 @@
 import type { Note } from "@/types/note";
 import type User from "@/types/user";
 import { nextServer } from "./api";
-
 export type RegisterRequest = {
   email: string;
   password: string;
