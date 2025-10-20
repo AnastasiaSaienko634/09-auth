@@ -18,7 +18,7 @@ const SignIn = () => {
       const response = await login(formValues);
 
       if (response) {
-        setUser(response.data);
+        setUser(response);
         router.replace("/profile");
       } else {
         setError("Invalid email or password");
